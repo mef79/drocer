@@ -6,7 +6,7 @@ from io import open
 from util import RecordFile
 
 DATE_FORMAT = "%Y-%m-%d"
-DIR = "/"
+DIR = ""
 INVALID_VALS = ["", "\n", "Not found", {}]
 OUTPUT = "out/"
 
@@ -188,8 +188,6 @@ class Record:
         # clean out lines before first "DEPT" and ward lines that made it into
         # the chunk of lines because of the table layout of the pdf
         lines = self.clean_dept_lines(lines)
-        if (self.year == 1996):
-            print (lines)
 
         # split into various bodies (each dept, board, or commission)
         # each body is still a list of strings after this step completes
@@ -452,8 +450,6 @@ class Record:
 
             # if the current line is
             if self.is_incomplete_line(line, previous):
-                if self.year == 1996:
-                    print (line)
                 # get rid of "|||"s that are being used as spacing
                 line.replace('|', '', 10)
                 current_dept[-1] = ' '.join([current_dept[-1], line])
@@ -911,7 +907,7 @@ class Person:
 class RecordCollection:
 
     def __init__(self, **kwargs):
-        self.rules = Rules.create_rules('rules')
+        self.rules = Rules.create_rules('rules.txt')
 
         if ('years' in kwargs):
             self.records = self.create_records_in_range(
@@ -966,7 +962,7 @@ class RecordCollection:
         records = []
 
         for i in range(1996, 2016):
-            for f_name in sorted(os.listdir('drocer/' + str(i))):
+            for f_name in sorted(os.listdir(DIR  + str(i))):
                 records.append(Record(f_name, self.rules))
                 break
 
@@ -977,7 +973,7 @@ class RecordCollection:
         records = []
 
         for i in range(start, end):
-            for f_name in sorted(os.listdir('drocer/' + str(i))):
+            for f_name in sorted(os.listdir(DIR + str(i))):
                 records.append(Record(f_name, self.rules))
 
         return records
