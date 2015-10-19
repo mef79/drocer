@@ -20,7 +20,7 @@ Check the [original PDFs](http://clevelandcitycouncil.org/the-city-record/) or d
 
 https://hackpad.com/City-Council-Records-7c707KHL5Wq
 
-# Current Status
+### Current Status
 
 Working on parsing the directory page of each record, some debugging currently
 present.
